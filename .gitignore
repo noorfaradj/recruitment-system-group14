@@ -1,0 +1,9 @@
+# Maven build files
+target/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
