@@ -1,0 +1,10 @@
+package se.kth.iv1201.recruitment.controller;
+
+import org.springframework.stereotype.Controller;
+
+/**
+ * MVC controller for recruiter pages.
+ */
+@Controller
+public class RecruiterController {
+}
