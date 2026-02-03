@@ -62,12 +62,6 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
 
-        <!-- Security (can stay, but unused for iteration 2) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
         <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

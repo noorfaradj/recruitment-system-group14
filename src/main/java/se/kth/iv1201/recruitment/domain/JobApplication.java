@@ -1,16 +1,9 @@
 package se.kth.iv1201.recruitment.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
- * JPA entity representing a job application.
+ * Entity representing a job application in the system.
  */
 @Entity
 @Table(name = "job_application")
@@ -20,43 +13,48 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false, length = 100)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 100)
+    @Column(name = "last_name")
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
     private ApplicationStatus status;
 
-    protected JobApplication() {
-        // Required by JPA
-    }
-
-    public JobApplication(String firstName, String lastName, ApplicationStatus status) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.status = status;
-    }
-
+    /**
+     * Gets the ID of the job application.
+     *
+     * @return the application ID
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Gets the applicant's first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Gets the applicant's last name.
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Gets the status of the job application.
+     *
+     * @return the application status
+     */
     public ApplicationStatus getStatus() {
         return status;
-    }
-
-    public String getFullName() {
-        return firstName + " " + lastName;
     }
 }
