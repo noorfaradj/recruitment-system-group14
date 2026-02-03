@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Recruiter – Applications</title>
+
+    <style>
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        margin: 2rem;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Job Applications</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full name</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="app : ${applications}">
+          <td th:text="${app.id}">1</td>
+          <td th:text="${app.fullName}">John Doe</td>
+          <td th:text="${app.status}">UNHANDLED</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
