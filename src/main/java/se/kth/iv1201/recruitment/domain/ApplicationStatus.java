@@ -1,21 +1,21 @@
 package se.kth.iv1201.recruitment.domain;
 
 /**
- * Enum representing the status of a job application.
+ * Representerar statusen för en jobbansökan.
  */
 public enum ApplicationStatus {
     /**
-     * The application has been accepted.
+     * Ansökan har accepterats.
      */
     ACCEPTED,
 
     /**
-     * The application has been rejected.
+     * Ansökan har avslagits.
      */
     REJECTED,
 
     /**
-     * The application is still under review.
+     * Ansökan är obehandlad.
      */
     UNHANDLED
 }

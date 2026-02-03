@@ -3,7 +3,8 @@ package se.kth.iv1201.recruitment.dto;
 import se.kth.iv1201.recruitment.domain.ApplicationStatus;
 
 /**
- * DTO used for transferring job application data to the recruiter UI.
+ * Data Transfer Object (DTO) som används för att presentera en jobbansökan i listvyn.
+ * Innehåller endast den information som behövs för att visa listan för rekryteraren.
  */
 public class ApplicationListItemDTO {
 
@@ -12,11 +13,11 @@ public class ApplicationListItemDTO {
     private final ApplicationStatus status;
 
     /**
-     * Creates an instance of ApplicationListItemDTO.
+     * Skapar en ny instans av ApplicationListItemDTO.
      *
-     * @param id       The ID of the job application.
-     * @param fullName The full name of the applicant.
-     * @param status   The status of the job application.
+     * @param id       Ansökans unika ID.
+     * @param fullName Den sökandes fullständiga namn.
+     * @param status   Ansökans nuvarande status.
      */
     public ApplicationListItemDTO(Long id, String fullName, ApplicationStatus status) {
         this.id = id;
@@ -25,27 +26,27 @@ public class ApplicationListItemDTO {
     }
 
     /**
-     * Gets the ID of the job application.
+     * Hämtar ansökans ID.
      *
-     * @return The ID of the job application.
+     * @return ID för ansökan.
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Gets the full name of the applicant.
+     * Hämtar den sökandes fullständiga namn.
      *
-     * @return The full name of the applicant.
+     * @return Namnet på den sökande.
      */
     public String getFullName() {
         return fullName;
     }
 
     /**
-     * Gets the status of the job application.
+     * Hämtar status för ansökan.
      *
-     * @return The status of the job application.
+     * @return Status (t.ex. ACCEPTED, REJECTED, UNHANDLED).
      */
     public ApplicationStatus getStatus() {
         return status;

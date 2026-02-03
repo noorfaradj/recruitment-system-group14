@@ -4,14 +4,12 @@ import se.kth.iv1201.recruitment.dto.ApplicationListItemDTO;
 import java.util.List;
 
 /**
- * Service interface for job application-related operations.
+ * Gränssnitt för tjänsten som hanterar jobbansökningar.
  */
 public interface JobApplicationService {
-
     /**
-     * Retrieves a list of all job applications.
-     *
-     * @return A list of ApplicationListItemDTO objects representing job applications.
+     * Hämtar en lista över alla ansökningar i form av DTO-objekt.
+     * @return En lista med ApplicationListItemDTO.
      */
     List<ApplicationListItemDTO> listAllApplications();
 }

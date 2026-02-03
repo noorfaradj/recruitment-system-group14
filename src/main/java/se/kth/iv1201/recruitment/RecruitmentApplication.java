@@ -4,16 +4,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Entry point for the Recruitment Application.
- * This class bootstraps the Spring Boot application and starts the embedded server.
+ * Startpunkt för rekryteringsapplikationen.
+ * Denna klass konfigurerar och startar Spring Boot-applikationen.
  */
 @SpringBootApplication
 public class RecruitmentApplication {
 
     /**
-     * The main method that serves as the entry point for the Spring Boot application.
+     * Huvudmetod som startar applikationen.
      *
-     * @param args Command-line arguments passed to the application.
+     * @param args Argument från kommandoraden.
      */
     public static void main(String[] args) {
         SpringApplication.run(RecruitmentApplication.class, args);
