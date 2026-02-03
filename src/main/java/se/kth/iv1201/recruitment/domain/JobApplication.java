@@ -3,7 +3,8 @@ package se.kth.iv1201.recruitment.domain;
 import jakarta.persistence.*;
 
 /**
- * Entity representing a job application in the system.
+ * Representerar en jobbansökan i databasen.
+ * Denna entitet mappar mot tabellen 'job_application'.
  */
 @Entity
 @Table(name = "job_application")
@@ -13,48 +14,46 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Enumerated(EnumType.STRING)
-    private ApplicationStatus status;
+    @Column(name = "status", nullable = false)
+    private String status;
 
     /**
-     * Gets the ID of the job application.
-     *
-     * @return the application ID
+     * Skapar en ny instans.
+     * Detta är en tom konstruktor som krävs av JPA-ramverket.
      */
-    public Long getId() {
-        return id;
-    }
+    protected JobApplication() {}
 
     /**
-     * Gets the applicant's first name.
+     * Hämtar ansökans unika identifierare.
      *
-     * @return the first name
+     * @return Ansökans ID.
      */
-    public String getFirstName() {
-        return firstName;
-    }
+    public Long getId() { return id; }
 
     /**
-     * Gets the applicant's last name.
+     * Hämtar den sökandes förnamn.
      *
-     * @return the last name
+     * @return Förnamnet.
      */
-    public String getLastName() {
-        return lastName;
-    }
+    public String getFirstName() { return firstName; }
 
     /**
-     * Gets the status of the job application.
+     * Hämtar den sökandes efternamn.
      *
-     * @return the application status
+     * @return Efternamnet.
      */
-    public ApplicationStatus getStatus() {
-        return status;
-    }
+    public String getLastName() { return lastName; }
+
+    /**
+     * Hämtar nuvarande status för ansökan.
+     *
+     * @return Status som en sträng (t.ex. ACCEPTED, REJECTED, UNHANDLED).
+     */
+    public String getStatus() { return status; }
 }

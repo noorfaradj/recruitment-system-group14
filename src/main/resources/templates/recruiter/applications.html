@@ -1,47 +1,97 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Recruiter – Applications</title>
-
+    <title>Recruitment - Applications</title>
     <style>
+      /* inställningar för sidans bakgrund och font */
       body {
-        font-family: system-ui, -apple-system, sans-serif;
-        margin: 2rem;
+        font-family: "Segoe UI", sans-serif; /* modernt och rent typsnitt */
+        background-color: #fff0f5; /* ljusrosa bakgrund (lavender blush) */
+        color: #333;
+        display: flex;
+        justify-content: center; /* centrerar innehållet horisontellt */
+        padding-top: 50px;
       }
+
+      /* huvudbehållare (kortet) som håller innehållet */
+      .container {
+        width: 80%;
+        max-width: 800px;
+        background: white;
+        padding: 2rem;
+        border-radius: 15px; /* runda och mjuka hörn */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* mjuk skugga för djup */
+      }
+
+      /* stil för rubriken */
+      h1 {
+        text-align: left; /* placerar titeln till vänster ovanför tabellen */
+        color: #d81b60; /* mörkrosa färg för kontrast */
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+      }
+
+      /* grundlayout för tabellen */
       table {
-        border-collapse: collapse;
         width: 100%;
+        border-collapse: collapse; /* tar bort mellanrum mellan celler */
+        border-radius: 10px;
+        overflow: hidden; /* ser till att hörnen förblir runda */
       }
+
+      /* stil för tabellhuvudet */
+      thead {
+        background-color: #ff80ab; /* klar rosa färg på headern */
+        color: white;
+      }
+
       th,
       td {
-        border: 1px solid #ddd;
-        padding: 8px;
-      }
-      th {
-        background-color: #f2f2f2;
+        padding: 12px 15px; /* luftigt utrymme i cellerna */
         text-align: left;
+      }
+
+      /* färgar varannan rad för bättre läsbarhet */
+      tbody tr:nth-child(even) {
+        background-color: #fff9fc; /* väldigt ljus rosa rand */
+      }
+
+      /* effekt när man för musen över en rad */
+      tbody tr:hover {
+        background-color: #fce4ec;
+        transition: background-color 0.2s ease-in-out; /* mjuk övergång */
+      }
+
+      /* specifik stil för status-texten */
+      .status-col {
+        font-weight: bold;
+        color: #880e4f;
       }
     </style>
   </head>
   <body>
-    <h1>Job Applications</h1>
+    <div class="container">
+      <h1>Job Applications</h1>
 
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Full name</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="app : ${applications}">
-          <td th:text="${app.id}">1</td>
-          <td th:text="${app.fullName}">John Doe</td>
-          <td th:text="${app.status}">UNHANDLED</td>
-        </tr>
-      </tbody>
-    </table>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Applicant</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="app : ${applications}">
+            <td th:text="${app.id}">1</td>
+
+            <td th:text="${app.fullName}">First Last</td>
+
+            <td class="status-col" th:text="${app.status}">UNHANDLED</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>

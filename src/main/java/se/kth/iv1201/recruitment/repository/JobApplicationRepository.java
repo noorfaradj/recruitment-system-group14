@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 import se.kth.iv1201.recruitment.domain.JobApplication;
 
 /**
- * Repository for accessing job application data from the database.
+ * Hanterar databasanrop för jobbansökningar.
  */
 @Repository
 public interface JobApplicationRepository extends JpaRepository<JobApplication, Long> {
-    
+    // Spring Data JPA genererar automatiskt implementationen för grundläggande CRUD.
 }
