@@ -1,56 +1,45 @@
 package se.kth.iv1201.recruitment.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import se.kth.iv1201.recruitment.dto.UserRegistrationDTO;
 import se.kth.iv1201.recruitment.service.PersonService;
 
-/**
- * Kontroller för oinloggade besökare. Hanterar startsida, inloggning och registrering.
- */
 @Controller
 public class MainController {
-
     private final PersonService personService;
 
     public MainController(PersonService personService) {
         this.personService = personService;
     }
 
-    /**
-     * Visar startsidan där användaren kan välja att logga in eller registrera sig.
-     */
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
-
-    /**
-     * Visar inloggningssidan.
-     */
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "login"; 
     }
 
-    /**
-     * Visar registreringssidan.
-     */
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new UserRegistrationDTO());
         return "register";
     }
 
-    /**
-     * Tar emot och sparar en ny användare.
-     */
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") UserRegistrationDTO userDTO) {
+    public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO userDTO, BindingResult result, Model model) {
+        // 1. Om fält saknas, visa formuläret igen med felmeddelanden (Scenario 5.1.3, steg 1a) [cite: 81]
+        if (result.hasErrors()) {
+            return "register"; 
+        }
+        
+        // 2. Registrera kontot i databasen (Scenario 5.1.3, steg 2) [cite: 82]
         personService.registerUser(userDTO);
-        return "redirect:/login?registered";
+        
+        // 3. Visa en bekräftelse (Scenario 5.1.3, steg 3) 
+        // Istället för redirect till login, skickar vi med ett meddelande till en vy
+        model.addAttribute("successMsg", "Registration successful! You can now log in.");
+        return "login"; // Vi går till login men stannar på sidan för att visa meddelandet
     }
 }
