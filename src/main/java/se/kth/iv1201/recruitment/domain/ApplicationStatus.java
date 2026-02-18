@@ -1,21 +1,24 @@
 package se.kth.iv1201.recruitment.domain;
 
 /**
- * Representerar statusen för en jobbansökan.
+ * Representerar möjliga statusvärden för en jobbansökan.
+ * Används för att markera om en ansökan är accepterad,
+ * avslagen eller ännu inte behandlad.
  */
 public enum ApplicationStatus {
+
     /**
-     * Ansökan har accepterats.
+     * Ansökan har accepterats av rekryteraren.
      */
     ACCEPTED,
 
     /**
-     * Ansökan har avslagits.
+     * Ansökan har avslagits av rekryteraren.
      */
     REJECTED,
 
     /**
-     * Ansökan är obehandlad.
+     * Ansökan är ännu inte behandlad.
      */
     UNHANDLED
 }

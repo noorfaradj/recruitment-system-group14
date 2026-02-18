@@ -1,31 +1,37 @@
 package se.kth.iv1201.recruitment.service;
 
-import se.kth.iv1201.recruitment.dto.ApplicationListItemDTO;
-import se.kth.iv1201.recruitment.dto.ApplicationFormDTO;
 import java.util.List;
+
+import se.kth.iv1201.recruitment.dto.ApplicationFormDTO;
+import se.kth.iv1201.recruitment.dto.ApplicationListItemDTO;
 
 /**
  * Tjänstegränssnitt för hantering av jobbansökningar.
- * Definierar affärslogik för att lista existerande ansökningar samt för att
- * registrera nya ansökningar med kompetensprofiler och tillgänglighetsperioder.
+ *
+ * Definierar affärsoperationer relaterade till:
+ * - listning av ansökningar för rekryterare,
+ * - registrering av nya ansökningar från sökande.
  */
 public interface JobApplicationService {
 
     /**
-     * Hämtar en lista över samtliga jobbansökningar i systemet transformerade till DTO-objekt.
-     * Denna metod används primärt av rekryterare för att få en överblick över inkomna ansökningar.
+     * Hämtar samtliga jobbansökningar och mappar dem till
+     * {@link ApplicationListItemDTO}.
      *
-     * @return En lista innehållande {@link ApplicationListItemDTO} för alla ansökningar.
+     * @return lista av ansökningar i DTO-format
      */
     List<ApplicationListItemDTO> listAllApplications();
 
     /**
-     * Sparar en fullständig jobbansökan i databasen.
-     * Metoden hanterar lagring av både kompetensprofiler och tillgänglighetsperioder
-     * knutna till en specifik användare i en sammanhängande transaktion.
+     * Sparar en fullständig jobbansökan.
      *
-     * @param form DTO-objekt som innehåller data från ansökningsformuläret.
-     * @param username Användarnamnet för den sökande som skickar in ansökan.
+     * Implementationen ansvarar för att lagra:
+     * - kompetensprofiler,
+     * - tillgänglighetsperioder,
+     * - huvudposten för ansökan.
+     *
+     * @param form data från ansökningsformuläret
+     * @param username användarnamn för den sökande
      */
     void saveFullApplication(ApplicationFormDTO form, String username);
 }
