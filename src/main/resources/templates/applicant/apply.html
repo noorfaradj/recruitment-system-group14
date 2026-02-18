@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Apply for Position</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+        background-color: #fce4ec;
+      }
+      .section {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .row {
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
+      input,
+      select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .btn {
+        padding: 10px 20px;
+        background-color: #ff80ab;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .btn-add {
+        background-color: #4caf50;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">
+      <h1>Submit Your Application</h1>
+      <form th:action="@{/applicant/apply}" th:object="${form}" method="post">
+        <div class="section">
+          <h3>Areas of Expertise</h3>
+          <div id="competence-list">
+            <div class="row" th:each="comp, iter : *{competences}">
+              <select th:field="*{competences[__${iter.index}__].competenceId}">
+                <option value="">-- Select Competence --</option>
+                <option
+                  th:each="c : ${allCompetences}"
+                  th:value="${c.competenceId}"
+                  th:text="${c.name}"
+                ></option>
+              </select>
+              <input
+                type="number"
+                step="0.1"
+                th:field="*{competences[__${iter.index}__].years}"
+                placeholder="Years of experience"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Availability Periods</h3>
+          <div id="availability-list">
+            <div class="row" th:each="avail, iter : *{availabilities}">
+              <label>From:</label>
+              <input
+                type="date"
+                th:field="*{availabilities[__${iter.index}__].fromDate}"
+              />
+              <label>To:</label>
+              <input
+                type="date"
+                th:field="*{availabilities[__${iter.index}__].toDate}"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn">Submit Application</button>
+      </form>
+    </div>
+  </body>
+</html>

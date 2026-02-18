@@ -21,11 +21,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/register", "/login", "/css/**", "/js/**", "/error").permitAll()
                 
-                // Task 6: Access control baserat på roll
-                .requestMatchers("/admin/**").hasRole("RECRUITER") 
-                .requestMatchers("/apply/**").hasRole("APPLICANT") 
+                // Ändra här! Matchar nu kontrollerns @RequestMapping("/applicant")
+                .requestMatchers("/applicant/**").hasRole("APPLICANT") 
                 
-                // Alla inloggade ska kunna nå /home
+                // Ändra här om din RecruiterController använder /recruiter/...
+                .requestMatchers("/recruiter/**").hasRole("RECRUITER") 
+                
                 .requestMatchers("/home").authenticated()
                 .anyRequest().authenticated()
             )

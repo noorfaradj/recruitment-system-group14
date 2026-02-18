@@ -7,7 +7,7 @@
     <h1>Welcome, <span th:text="${username}">User</span>!</h1>
     <p>You are now logged in to the recruitment system.</p>
 
-    <a href="/apply">Apply for a position</a>
+    <a th:href="@{/applicant/apply}">Apply for a position</a>
 
     <br /><br />
     <form th:action="@{/logout}" method="post">
