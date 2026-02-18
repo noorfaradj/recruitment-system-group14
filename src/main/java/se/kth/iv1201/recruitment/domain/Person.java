@@ -17,21 +17,29 @@ public class Person {
     private String username;
     private String password;
 
-    @ManyToOne // Definierar relationen till Role-tabellen
+    @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
-    // Getters och Setters
+    public Person() {} // JPA krav
+
+    // Getters
+    public Long getPersonId() { return personId; }
+    public String getName() { return name; }
+    public String getSurname() { return surname; }
+    public String getPnr() { return pnr; }
+    public String getEmail() { return email; }
     public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
     public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
     public Role getRole() { return role; }
-    public void setRole(Role role) { this.role = role; } // Fixar felet "undefined for the type Person"
-    
-    // Lägg till resterande setters för name, surname, pnr, email...
+
+    // Setters
+    public void setPersonId(Long personId) { this.personId = personId; }
     public void setName(String name) { this.name = name; }
     public void setSurname(String surname) { this.surname = surname; }
     public void setPnr(String pnr) { this.pnr = pnr; }
     public void setEmail(String email) { this.email = email; }
+    public void setUsername(String username) { this.username = username; }
+    public void setPassword(String password) { this.password = password; }
+    public void setRole(Role role) { this.role = role; }
 }

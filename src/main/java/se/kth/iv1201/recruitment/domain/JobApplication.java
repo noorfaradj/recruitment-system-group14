@@ -2,10 +2,6 @@ package se.kth.iv1201.recruitment.domain;
 
 import jakarta.persistence.*;
 
-/**
- * Representerar en jobbansökan i databasen.
- * Denna entitet mappar mot tabellen 'job_application'.
- */
 @Entity
 @Table(name = "job_application")
 public class JobApplication {
@@ -14,46 +10,19 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+    @ManyToOne(fetch = FetchType.EAGER) // Ändrat till EAGER för att undvika LazyInitializationException
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
 
     @Column(name = "status", nullable = false)
-    private String status;
+    private String status = "UNHANDLED";
 
-    /**
-     * Skapar en ny instans.
-     * Detta är en tom konstruktor som krävs av JPA-ramverket.
-     */
-    protected JobApplication() {}
+    public JobApplication() {}
 
-    /**
-     * Hämtar ansökans unika identifierare.
-     *
-     * @return Ansökans ID.
-     */
     public Long getId() { return id; }
-
-    /**
-     * Hämtar den sökandes förnamn.
-     *
-     * @return Förnamnet.
-     */
-    public String getFirstName() { return firstName; }
-
-    /**
-     * Hämtar den sökandes efternamn.
-     *
-     * @return Efternamnet.
-     */
-    public String getLastName() { return lastName; }
-
-    /**
-     * Hämtar nuvarande status för ansökan.
-     *
-     * @return Status som en sträng (t.ex. ACCEPTED, REJECTED, UNHANDLED).
-     */
+    public void setId(Long id) { this.id = id; }
+    public Person getPerson() { return person; }
+    public void setPerson(Person person) { this.person = person; }
     public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

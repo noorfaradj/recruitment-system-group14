@@ -1,6 +1,8 @@
 package se.kth.iv1201.recruitment.controller;
 
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,8 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import se.kth.iv1201.recruitment.dto.UserRegistrationDTO;
 import se.kth.iv1201.recruitment.service.PersonService;
 
+/**
+ * Controller för publika sidor som inloggning och registrering.
+ * Hanterar validering på server-sidan enligt Task 25.
+ */
 @Controller
 public class MainController {
+    
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
     private final PersonService personService;
 
     public MainController(PersonService personService) {
@@ -21,25 +29,49 @@ public class MainController {
         return "login"; 
     }
 
+    /**
+     * Visar registreringsformuläret.
+     * Skapar ett tomt DTO-objekt för att Thymeleaf ska kunna binda fälten.
+     */
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new UserRegistrationDTO());
+        if (!model.containsAttribute("user")) {
+            model.addAttribute("user", new UserRegistrationDTO());
+        }
         return "register";
     }
 
+    /**
+     * Hanterar inskickat registreringsformulär.
+     * @Valid triggar valideringsreglerna i UserRegistrationDTO.
+     * BindingResult innehåller resultatet av valideringen (alla fel samtidigt).
+     */
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO userDTO, BindingResult result, Model model) {
-        // 1. Om fält saknas, visa formuläret igen med felmeddelanden (Scenario 5.1.3, steg 1a) [cite: 81]
+    public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO userDTO, 
+                               BindingResult result, 
+                               Model model) {
+        
+        // 1. Validering: Om fält saknas eller är felaktiga (t.ex. för kort lösenord)
+        // Task 25: Server-side validation
         if (result.hasErrors()) {
-            return "register"; 
+            logger.warn("Validation failed for registration attempt: {} errors found", result.getErrorCount());
+            return "register"; // Returnerar vyn med alla felmeddelanden synliga
         }
         
-        // 2. Registrera kontot i databasen (Scenario 5.1.3, steg 2) [cite: 82]
-        personService.registerUser(userDTO);
-        
-        // 3. Visa en bekräftelse (Scenario 5.1.3, steg 3) 
-        // Istället för redirect till login, skickar vi med ett meddelande till en vy
-        model.addAttribute("successMsg", "Registration successful! You can now log in.");
-        return "login"; // Vi går till login men stannar på sidan för att visa meddelandet
+        try {
+            // 2. Försök att registrera användaren i databasen
+            personService.registerUser(userDTO);
+            logger.info("Successfully registered new user: {}", userDTO.getUsername());
+            
+            // 3. Vid lyckad registrering, visa inloggningssidan med bekräftelse
+            model.addAttribute("successMsg", "Registration successful! You can now log in.");
+            return "login";
+            
+        } catch (Exception e) {
+            // Hanterar om t.ex. användarnamnet redan finns (Task 12: Error handling)
+            logger.error("Registration failed for user {}: {}", userDTO.getUsername(), e.getMessage());
+            model.addAttribute("regError", "Username or email is already taken.");
+            return "register";
+        }
     }
 }

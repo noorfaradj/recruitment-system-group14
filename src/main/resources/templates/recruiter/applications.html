@@ -4,81 +4,72 @@
     <meta charset="UTF-8" />
     <title>Recruitment - Applications</title>
     <style>
-      /* inställningar för sidans bakgrund och font */
       body {
-        font-family: "Segoe UI", sans-serif; /* modernt och rent typsnitt */
-        background-color: #fff0f5; /* ljusrosa bakgrund (lavender blush) */
+        font-family: "Segoe UI", sans-serif;
+        background-color: #fff0f5;
         color: #333;
         display: flex;
-        justify-content: center; /* centrerar innehållet horisontellt */
+        justify-content: center;
         padding-top: 50px;
       }
-
-      /* huvudbehållare (kortet) som håller innehållet */
       .container {
-        width: 80%;
-        max-width: 800px;
+        width: 90%;
+        max-width: 900px;
         background: white;
         padding: 2rem;
-        border-radius: 15px; /* runda och mjuka hörn */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* mjuk skugga för djup */
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       }
-
-      /* stil för rubriken */
       h1 {
-        text-align: left; /* placerar titeln till vänster ovanför tabellen */
-        color: #d81b60; /* mörkrosa färg för kontrast */
+        color: #d81b60;
         margin-bottom: 1rem;
         font-size: 1.8rem;
       }
-
-      /* grundlayout för tabellen */
       table {
         width: 100%;
-        border-collapse: collapse; /* tar bort mellanrum mellan celler */
+        border-collapse: collapse;
         border-radius: 10px;
-        overflow: hidden; /* ser till att hörnen förblir runda */
+        overflow: hidden;
       }
-
-      /* stil för tabellhuvudet */
       thead {
-        background-color: #ff80ab; /* klar rosa färg på headern */
+        background-color: #ff80ab;
         color: white;
       }
-
       th,
       td {
-        padding: 12px 15px; /* luftigt utrymme i cellerna */
+        padding: 12px 15px;
         text-align: left;
       }
-
-      /* färgar varannan rad för bättre läsbarhet */
       tbody tr:nth-child(even) {
-        background-color: #fff9fc; /* väldigt ljus rosa rand */
+        background-color: #fff9fc;
       }
-
-      /* effekt när man för musen över en rad */
       tbody tr:hover {
         background-color: #fce4ec;
-        transition: background-color 0.2s ease-in-out; /* mjuk övergång */
+        transition: 0.2s;
       }
-
-      /* specifik stil för status-texten */
       .status-col {
         font-weight: bold;
         color: #880e4f;
+      }
+      .btn-back {
+        display: inline-block;
+        margin-top: 20px;
+        color: #d81b60;
+        text-decoration: none;
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Job Applications</h1>
+      <h1>Job Applications List</h1>
 
       <table>
         <thead>
           <tr>
             <th>ID</th>
             <th>Applicant</th>
+            <th>Email</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -88,10 +79,14 @@
 
             <td th:text="${app.fullName}">First Last</td>
 
+            <td th:text="${app.email}">email@test.com</td>
+
             <td class="status-col" th:text="${app.status}">UNHANDLED</td>
           </tr>
         </tbody>
       </table>
+
+      <a href="/home" class="btn-back">← Back to Dashboard</a>
     </div>
   </body>
 </html>

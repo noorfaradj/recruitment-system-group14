@@ -15,24 +15,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // Inaktivera CSRF tillfälligt om du har problem med att POST-anrop (som register) blockeras
-            // I en produktionmiljö bör detta vara på, men för labben underlättar det
+            // CSRF inaktiverad för att underlätta POST från formulär under labben
             .csrf(csrf -> csrf.disable()) 
             
             .authorizeHttpRequests(auth -> auth
-                // VIKTIGT: Se till att alla resurser som behövs för att visa sidorna är öppna
                 .requestMatchers("/", "/register", "/login", "/css/**", "/js/**", "/error").permitAll()
                 
-                // Task 6: Roller. hasRole förväntar sig att din authority börjar på "ROLE_"
+                // Task 6: Access control baserat på roll
                 .requestMatchers("/admin/**").hasRole("RECRUITER") 
                 .requestMatchers("/apply/**").hasRole("APPLICANT") 
                 
+                // Alla inloggade ska kunna nå /home
+                .requestMatchers("/home").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
-                .loginPage("/login") 
-                .loginProcessingUrl("/login") // Denna URL lyssnar Spring på vid inloggning
-                .defaultSuccessUrl("/", true) 
+                .loginPage("/login")
+                .loginProcessingUrl("/login") // Viktigt: URL dit inloggningsformuläret postar
+                .defaultSuccessUrl("/home", true) 
                 .permitAll()
             )
             .logout(logout -> logout
@@ -47,7 +47,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // Task 7: BCrypt för lösenordshashning
+        // Task 7: Obligatorisk BCrypt-hashing
         return new BCryptPasswordEncoder();
     }
 }

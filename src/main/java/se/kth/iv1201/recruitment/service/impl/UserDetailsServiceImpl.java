@@ -1,10 +1,14 @@
 package se.kth.iv1201.recruitment.service.impl;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.*;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import se.kth.iv1201.recruitment.domain.Person;
 import se.kth.iv1201.recruitment.repository.PersonRepository;
+
 import java.util.Collections;
 
 @Service
@@ -17,15 +21,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Fixar Optional-felet genom orElseThrow
+        // Hämtar person från DB
         Person person = personRepository.findByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
 
-        // Task 6: Authorization [cite: 163]
-        return new User(
-            person.getUsername(),
-            person.getPassword(),
-            Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + person.getRole().getName().toUpperCase()))
-        );
+        // Säkerhetskoll: Om roll saknas i DB, kasta fel istället för NullPointerException
+        if (person.getRole() == null) {
+            throw new UsernameNotFoundException("User has no role assigned");
+        }
+
+        // Konverterar små bokstäver (t.ex. recruiter) till ROLE_RECRUITER
+        String roleName = "ROLE_" + person.getRole().getName().toUpperCase();
+
+        return User.builder()
+                .username(person.getUsername())
+                .password(person.getPassword())
+                .authorities(new SimpleGrantedAuthority(roleName))
+                .build();
     }
 }
