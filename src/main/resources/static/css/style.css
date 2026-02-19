@@ -1,0 +1,190 @@
+/* Grundinställningar */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff0f5;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
+  margin: 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.container-narrow {
+  max-width: 500px;
+}
+.container-wide {
+  max-width: 900px;
+}
+.text-center {
+  text-align: center;
+}
+
+h1,
+h2,
+h3 {
+  color: #d81b60;
+  margin-bottom: 1.5rem;
+}
+
+/* Knappar */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #ff80ab;
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #f06292;
+}
+
+.btn-secondary {
+  background-color: #eee;
+  color: #555;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* Formulär */
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.flex-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+input,
+select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff80ab;
+  box-shadow: 0 0 5px rgba(255, 128, 171, 0.3);
+}
+
+/* Felmeddelanden och Status */
+.error-msg {
+  color: #d81b60;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.error-box {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  color: #555;
+  margin: 20px 0;
+  font-size: 0.9rem;
+}
+
+.success-card {
+  color: green;
+  border-color: green;
+}
+
+.status-col {
+  font-weight: bold;
+  color: #880e4f;
+}
+
+input.is-invalid {
+  border: 2px solid #d81b60;
+}
+
+/* Tabeller */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #ff80ab;
+  color: white;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #fff9fc;
+}
+tbody tr:hover {
+  background-color: #fce4ec;
+  transition: 0.2s;
+}
+
+/* Sektionsindelning */
+.section-card {
+  background: #fff9fc;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #fce4ec;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+.mt-40 {
+  margin-top: 40px;
+}
+.space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

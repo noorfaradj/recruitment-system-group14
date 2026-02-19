@@ -3,67 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <title>Recruitment - Applications</title>
-    <style>
-      body {
-        font-family: "Segoe UI", sans-serif;
-        background-color: #fff0f5;
-        color: #333;
-        display: flex;
-        justify-content: center;
-        padding-top: 50px;
-      }
-      .container {
-        width: 90%;
-        max-width: 900px;
-        background: white;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        color: #d81b60;
-        margin-bottom: 1rem;
-        font-size: 1.8rem;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        border-radius: 10px;
-        overflow: hidden;
-      }
-      thead {
-        background-color: #ff80ab;
-        color: white;
-      }
-      th,
-      td {
-        padding: 12px 15px;
-        text-align: left;
-      }
-      tbody tr:nth-child(even) {
-        background-color: #fff9fc;
-      }
-      tbody tr:hover {
-        background-color: #fce4ec;
-        transition: 0.2s;
-      }
-      .status-col {
-        font-weight: bold;
-        color: #880e4f;
-      }
-      .btn-back {
-        display: inline-block;
-        margin-top: 20px;
-        color: #d81b60;
-        text-decoration: none;
-        font-weight: bold;
-      }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
-    <div class="container">
+    <div class="container container-wide">
       <h1>Job Applications List</h1>
-
       <table>
         <thead>
           <tr>
@@ -76,17 +20,17 @@
         <tbody>
           <tr th:each="app : ${applications}">
             <td th:text="${app.id}">1</td>
-
             <td th:text="${app.fullName}">First Last</td>
-
             <td th:text="${app.email}">email@test.com</td>
-
             <td class="status-col" th:text="${app.status}">UNHANDLED</td>
           </tr>
         </tbody>
       </table>
-
-      <a href="/home" class="btn-back">← Back to Dashboard</a>
+      <div class="mt-30">
+        <a href="/home" class="btn-secondary" style="text-decoration: none"
+          >← Back to Dashboard</a
+        >
+      </div>
     </div>
   </body>
 </html>

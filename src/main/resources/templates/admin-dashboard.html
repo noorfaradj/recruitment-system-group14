@@ -1,42 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Admin Dashboard</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        padding: 50px;
-        background-color: #f4f4f4;
-      }
-      .card {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-      .btn-view {
-        display: inline-block;
-        padding: 12px 20px;
-        background-color: #ff80ab;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-      }
-    </style>
+    <meta charset="UTF-8" />
+    <title>Recruiter Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
-    <div class="card">
-      <h1>Welcome, Recruiter!</h1>
-      <p>Logged in as: <strong th:text="${username}">Admin</strong></p>
-
-      <a th:href="@{/recruiter/applications}" class="btn-view">
-        View All Applications
-      </a>
-
-      <form th:action="@{/logout}" method="post" style="margin-top: 20px">
-        <button type="submit">Logout</button>
-      </form>
+    <div class="container">
+      <h1>Recruiter Dashboard</h1>
+      <div class="section-card">
+        <p>
+          Welcome back! You are logged in as:
+          <strong th:text="${username}">Admin</strong>
+        </p>
+        <p>From here you can manage all incoming job applications.</p>
+      </div>
+      <div class="mt-30 text-center">
+        <a th:href="@{/recruiter/applications}" class="btn"
+          >View All Applications</a
+        >
+      </div>
+      <hr class="mt-30" style="border: 0; border-top: 1px solid #eee" />
+      <div class="text-center">
+        <form th:action="@{/logout}" method="post">
+          <button type="submit" class="btn-secondary">Logout</button>
+        </form>
+      </div>
     </div>
   </body>
 </html>

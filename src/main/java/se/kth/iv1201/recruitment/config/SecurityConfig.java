@@ -33,10 +33,10 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/register", "/login", "/css/**", "/js/**", "/error").permitAll()
 
-                // Ändra här! Matchar nu kontrollerns @RequestMapping("/applicant")
+                
                 .requestMatchers("/applicant/**").hasRole("APPLICANT")
 
-                // Ändra här om din RecruiterController använder /recruiter/...
+            
                 .requestMatchers("/recruiter/**").hasRole("RECRUITER")
 
                 .requestMatchers("/home").authenticated()
@@ -44,7 +44,7 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .loginProcessingUrl("/login") // Viktigt: URL dit inloggningsformuläret postar
+                .loginProcessingUrl("/login") 
                 .defaultSuccessUrl("/home", true)
                 .permitAll()
             )

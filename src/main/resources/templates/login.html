@@ -1,35 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
+    <meta charset="UTF-8" />
     <title>Log In</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
-    <div th:if="${successMsg}" style="color: green">
-      <p th:text="${successMsg}"></p>
-    </div>
-    <h1>Log In</h1>
-    <div th:if="${param.error}" style="color: red">
-      Invalid username or password.
-    </div>
-    <div th:if="${param.logout}" style="color: green">
-      You have been logged out.
-    </div>
-    <div th:if="${param.registered}" style="color: green">
-      Registration successful! Please log in.
-    </div>
+    <div class="container container-narrow">
+      <h1>Log In</h1>
 
-    <form th:action="@{/login}" method="post">
-      <div>
-        <label>Username:</label>
-        <input type="text" name="username" required />
+      <div th:if="${successMsg}" class="section-card success-card">
+        <p th:text="${successMsg}"></p>
       </div>
-      <div>
-        <label>Password:</label>
-        <input type="password" name="password" required />
+      <div
+        th:if="${param.error}"
+        class="error-msg text-center mt-30"
+        style="margin-bottom: 20px"
+      >
+        Invalid username or password.
       </div>
-      <button type="submit">Log in</button>
-    </form>
-    <br />
-    <a th:href="@{/}">Back to home</a>
+      <div th:if="${param.logout}" class="section-card">
+        <p>You have been logged out.</p>
+      </div>
+
+      <form th:action="@{/login}" method="post">
+        <div class="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            name="username"
+            required
+            placeholder="Enter username"
+          />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            required
+            placeholder="Enter password"
+          />
+        </div>
+        <button type="submit" class="btn btn-full">Sign In</button>
+      </form>
+
+      <div class="mt-30 text-center">
+        <a th:href="@{/}" class="btn-secondary" style="text-decoration: none"
+          >← Back to start</a
+        >
+      </div>
+    </div>
   </body>
 </html>
