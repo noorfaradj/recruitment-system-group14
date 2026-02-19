@@ -45,7 +45,7 @@ public class PersonServiceImpl implements PersonService {
      * Registrerar en ny användare i systemet.
      * <p>
      * Kontrollerar först om användarnamn eller e-post redan är registrerat 
-     * för att kunna ge specifik feedback till användaren.
+     * för att förhindra dubbletter.
      * </p>
      *
      * @param dto dataöverföringsobjekt innehållande registreringsuppgifter.
@@ -69,7 +69,7 @@ public class PersonServiceImpl implements PersonService {
         person.setPnr(dto.getPnr());
         person.setEmail(dto.getEmail());
 
-        // Task 7: Obligatorisk BCrypt-hashing av lösenord innan lagring i databasen.
+        // Task 7: Obligatorisk BCrypt-hashing av lösenord innan lagring.
         person.setPassword(passwordEncoder.encode(dto.getPassword()));
 
         Role applicantRole = roleRepository.findByName("applicant");

@@ -2,16 +2,19 @@ package se.kth.iv1201.recruitment.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import jakarta.validation.Valid;
 import se.kth.iv1201.recruitment.dto.UserRegistrationDTO;
 import se.kth.iv1201.recruitment.service.PersonService;
 
 /**
  * Controller som hanterar publika förfrågningar såsom inloggning och registrering.
  * <p>
- * Klassen fungerar som ingångspunkt i presentationslagret och delegerar 
+ * Fungerar som ingångspunkt i presentationslagret och delegerar 
  * affärslogik till {@link PersonService}.
  * </p>
  */
@@ -23,7 +26,7 @@ public class MainController {
     /**
      * Skapar en ny instans av MainController.
      *
-     * @param personService servicelagret för hantering av personrelaterad affärslogik.
+     * @param personService servicelagret för personrelaterad affärslogik.
      */
     public MainController(PersonService personService) {
         this.personService = personService;
@@ -56,16 +59,25 @@ public class MainController {
     /**
      * Tar emot och behandlar data från registreringsformuläret.
      * <p>
-     * Vid ett eventuellt affärsfel (exempelvis upptaget användarnamn) fångas 
-     * undantaget och ett felmeddelande presenteras för användaren.
+     * Använder @Valid för att säkerställa att alla obligatoriska fält är ifyllda.
+     * Fångar även affärsfel från servicelagret för att ge feedback till användaren.
      * </p>
      *
      * @param userDTO dataobjekt med användaruppgifter från formuläret.
+     * @param result innehåller resultat av valideringen (t.ex. tomma fält).
      * @param model används för att skicka felmeddelanden tillbaka till vyn.
      * @return omdirigering till inloggning vid framgång, annars tillbaka till register-vyn.
      */
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") UserRegistrationDTO userDTO, Model model) {
+    public String registerUser(@Valid @ModelAttribute("user") UserRegistrationDTO userDTO, 
+                               BindingResult result, 
+                               Model model) {
+        
+        // Kontrollerar om valideringen misslyckades (t.ex. tomma fält)
+        if (result.hasErrors()) {
+            return "register"; 
+        }
+
         try {
             personService.registerUser(userDTO);
             model.addAttribute("successMsg", "Registration successful! You can now log in.");
