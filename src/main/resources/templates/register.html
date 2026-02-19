@@ -7,6 +7,13 @@
   <body>
     <div class="container">
       <h1>Create Account</h1>
+      <div
+        th:if="${regError}"
+        class="error-msg text-center"
+        style="margin-bottom: 20px"
+      >
+        <p th:text="${regError}"></p>
+      </div>
       <p style="margin-bottom: 2rem">
         Please fill in your details to register.
       </p>

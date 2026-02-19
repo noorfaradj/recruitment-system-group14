@@ -1,7 +1,5 @@
 package se.kth.iv1201.recruitment.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +13,6 @@ import se.kth.iv1201.recruitment.service.JobApplicationService;
 @Controller
 public class RecruiterController {
 
-    private static final Logger logger = LoggerFactory.getLogger(RecruiterController.class);
     private final JobApplicationService jobApplicationService;
 
     /**
@@ -36,7 +33,6 @@ public class RecruiterController {
      */
     @GetMapping("/recruiter/applications")
     public String listApplications(Model model) {
-        logger.info("Anrop mottaget: Listar alla jobbansökningar.");
         model.addAttribute("applications", jobApplicationService.listAllApplications());
         return "recruiter/applications";
     }

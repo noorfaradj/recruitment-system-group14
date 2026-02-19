@@ -3,8 +3,7 @@ package se.kth.iv1201.recruitment.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,8 +35,6 @@ import se.kth.iv1201.recruitment.service.JobApplicationService;
 @Service
 @Transactional
 public class JobApplicationServiceImpl implements JobApplicationService {
-
-    private static final Logger logger = LoggerFactory.getLogger(JobApplicationServiceImpl.class);
 
     private final JobApplicationRepository repository;
     private final PersonRepository personRepository;
@@ -77,7 +74,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     @Override
     @Transactional(readOnly = true)
     public List<ApplicationListItemDTO> listAllApplications() {
-        logger.info("Hämtar ansökningar med JOIN FETCH för optimerad prestanda.");
         return repository.findAllWithPerson().stream()
                 .map(app -> new ApplicationListItemDTO(
                         app.getId(),
@@ -106,12 +102,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveFullApplication(ApplicationFormDTO form, String username) {
-        logger.info("Initierar lagring av fullständig ansökan för användare: {}", username);
-
         
         Person person = personRepository.findByUsername(username)
                 .orElseThrow(() -> {
-                    logger.error("Misslyckades att hitta användare: {}", username);
                     return new RuntimeException("User not found: " + username);
                 });
 
@@ -147,7 +140,5 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         app.setPerson(person);
         app.setStatus("UNHANDLED");
         repository.save(app);
-
-        logger.info("Ansökan sparad framgångsrikt för användare: {}", username);
     }
 }

@@ -1,21 +1,29 @@
 package se.kth.iv1201.recruitment.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.stereotype.Repository;
+import java.util.Optional;
 import se.kth.iv1201.recruitment.domain.Person;
 
 /**
- * Repository för Person-entityn.
- * Hanterar CRUD-operationer samt sökning baserat på användarnamn.
+ * Repository för hantering av {@link Person}-entiteter.
  */
+@Repository
+public interface PersonRepository extends JpaRepository<Person, Integer> {
 
-public interface PersonRepository extends JpaRepository<Person, Long> {
     /**
-     * Hittar en person baserat på användarnamn.
+     * Söker efter en person baserat på användarnamn.
+     *
      * @param username Användarnamnet att söka efter.
-     * @return En Optional innehållande personen om den hittas.
+     * @return En Optional som innehåller personen om den hittas.
      */
     Optional<Person> findByUsername(String username);
+
+    /**
+     * Söker efter en person baserat på e-postadress.
+     *
+     * @param email E-postadressen att söka efter.
+     * @return En Optional som innehåller personen om den hittas.
+     */
+    Optional<Person> findByEmail(String email);
 }
