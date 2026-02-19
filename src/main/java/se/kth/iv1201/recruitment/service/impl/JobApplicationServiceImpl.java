@@ -108,7 +108,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     public void saveFullApplication(ApplicationFormDTO form, String username) {
         logger.info("Initierar lagring av fullständig ansökan för användare: {}", username);
 
-        // Packar upp Optional<Person>
+        
         Person person = personRepository.findByUsername(username)
                 .orElseThrow(() -> {
                     logger.error("Misslyckades att hitta användare: {}", username);

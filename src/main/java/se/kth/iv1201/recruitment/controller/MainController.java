@@ -76,7 +76,7 @@ public class MainController {
         // Task 25: Server-side validation
         if (result.hasErrors()) {
             logger.warn("Validation failed for registration attempt: {} errors found", result.getErrorCount());
-            return "register"; // Returnerar vyn med alla felmeddelanden synliga
+            return "register"; 
         }
 
         try {
