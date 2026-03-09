@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Recruiter Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Recruiter Dashboard</h1>
+      <div class="section-card">
+        <p>
+          Welcome back! You are logged in as:
+          <strong th:text="${username}">Admin</strong>
+        </p>
+        <p>From here you can manage all incoming job applications.</p>
+      </div>
+      <div class="mt-30 text-center">
+        <a th:href="@{/recruiter/applications}" class="btn"
+          >View All Applications</a
+        >
+      </div>
+      <hr class="mt-30" style="border: 0; border-top: 1px solid #eee" />
+      <div class="text-center">
+        <form th:action="@{/logout}" method="post">
+          <button type="submit" class="btn-secondary">Logout</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

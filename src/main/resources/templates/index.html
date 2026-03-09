@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Recruitment - Start</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1>Recruitment System</h1>
+      <p>Welcome! Please choose an option below to continue.</p>
+      <div class="mt-30 flex-row" style="justify-content: center; gap: 20px">
+        <a th:href="@{/login}" class="btn">Log In</a>
+        <a th:href="@{/register}" class="btn" style="background-color: #880e4f"
+          >Register</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

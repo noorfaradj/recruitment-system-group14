@@ -4,16 +4,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Startpunkt för rekryteringsapplikationen.
- * Denna klass konfigurerar och startar Spring Boot-applikationen.
+ * Startklass för applikationen.
+ *
+ * Innehåller main-metoden som startar Spring Boot
+ * och initierar hela systemet.
  */
 @SpringBootApplication
 public class RecruitmentApplication {
 
     /**
-     * Huvudmetod som startar applikationen.
+     * Startar applikationen.
      *
-     * @param args Argument från kommandoraden.
+     * @param args kommandoradsargument
      */
     public static void main(String[] args) {
         SpringApplication.run(RecruitmentApplication.class, args);

@@ -1,10 +1,19 @@
 package se.kth.iv1201.recruitment.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 /**
- * Representerar en jobbansökan i databasen.
- * Denna entitet mappar mot tabellen 'job_application'.
+ * Entity som representerar en jobbansökan.
+ * Kopplar en person till en ansökan och dess status.
+ * Mappas mot tabellen "job_application".
  */
 @Entity
 @Table(name = "job_application")
@@ -14,46 +23,71 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    /**
+     * Personen som har skickat in ansökan.
+     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
+    /**
+     * Status för ansökan.
+     * Standardvärde är "UNHANDLED".
+     */
     @Column(name = "status", nullable = false)
-    private String status;
+    private String status = "UNHANDLED";
 
     /**
-     * Skapar en ny instans.
-     * Detta är en tom konstruktor som krävs av JPA-ramverket.
+     * Tom konstruktor krävs av JPA.
      */
-    protected JobApplication() {}
+    public JobApplication() {
+    }
 
     /**
-     * Hämtar ansökans unika identifierare.
+     * @return id för ansökan
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Sätter id.
      *
-     * @return Ansökans ID.
+     * @param id ansöknings-id
      */
-    public Long getId() { return id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     /**
-     * Hämtar den sökandes förnamn.
-     *
-     * @return Förnamnet.
+     * @return personen som skickade ansökan
      */
-    public String getFirstName() { return firstName; }
+    public Person getPerson() {
+        return person;
+    }
 
     /**
-     * Hämtar den sökandes efternamn.
+     * Sätter kopplad person.
      *
-     * @return Efternamnet.
+     * @param person person
      */
-    public String getLastName() { return lastName; }
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     /**
-     * Hämtar nuvarande status för ansökan.
-     *
-     * @return Status som en sträng (t.ex. ACCEPTED, REJECTED, UNHANDLED).
+     * @return nuvarande status för ansökan
      */
-    public String getStatus() { return status; }
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Sätter status.
+     *
+     * @param status ny status
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

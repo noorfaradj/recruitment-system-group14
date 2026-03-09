@@ -1,54 +1,57 @@
 package se.kth.iv1201.recruitment.dto;
 
-import se.kth.iv1201.recruitment.domain.ApplicationStatus;
-
 /**
- * Data Transfer Object (DTO) som används för att presentera en jobbansökan i listvyn.
- * Innehåller endast den information som behövs för att visa listan för rekryteraren.
+ * Data Transfer Object (DTO) som används för att presentera
+ * en jobbansökan i listvyn.
+ * Innehåller den information som krävs för Use Case 5.4.
  */
 public class ApplicationListItemDTO {
 
     private final Long id;
     private final String fullName;
-    private final ApplicationStatus status;
+    private final String email;
+    private final String status;
 
     /**
      * Skapar en ny instans av ApplicationListItemDTO.
      *
-     * @param id       Ansökans unika ID.
-     * @param fullName Den sökandes fullständiga namn.
-     * @param status   Ansökans nuvarande status.
+     * @param id ansökans id
+     * @param fullName sökandens fullständiga namn
+     * @param email sökandens e-postadress
+     * @param status ansökans status
      */
-    public ApplicationListItemDTO(Long id, String fullName, ApplicationStatus status) {
+    public ApplicationListItemDTO(Long id, String fullName, String email, String status) {
         this.id = id;
         this.fullName = fullName;
+        this.email = email;
         this.status = status;
     }
 
     /**
-     * Hämtar ansökans ID.
-     *
-     * @return ID för ansökan.
+     * @return ansökans id
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Hämtar den sökandes fullständiga namn.
-     *
-     * @return Namnet på den sökande.
+     * @return sökandens fullständiga namn
      */
     public String getFullName() {
         return fullName;
     }
 
     /**
-     * Hämtar status för ansökan.
-     *
-     * @return Status (t.ex. ACCEPTED, REJECTED, UNHANDLED).
+     * @return sökandens e-postadress
      */
-    public ApplicationStatus getStatus() {
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @return ansökans status som text
+     */
+    public String getStatus() {
         return status;
     }
 }

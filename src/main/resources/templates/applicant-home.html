@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Applicant Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome, <span th:text="${username}">User</span>!</h1>
+      <div class="section-card">
+        <p>You are now logged in to the recruitment system.</p>
+        <p>Ready to take the next step in your career?</p>
+      </div>
+      <div class="mt-30 text-center">
+        <a th:href="@{/applicant/apply}" class="btn">Apply for a position</a>
+      </div>
+      <div class="mt-40 text-center">
+        <form th:action="@{/logout}" method="post">
+          <button type="submit" class="btn-secondary">Logout</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

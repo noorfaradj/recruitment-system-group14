@@ -1,67 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="UTF-8" />
-    <title>Error</title>
-    <style>
-      /* samma tema som applications.html */
-      body {
-        font-family: "Segoe UI", sans-serif;
-        background-color: #fff0f5;
-        color: #333;
-        display: flex;
-        justify-content: center;
-        padding-top: 50px;
-      }
-
-      .container {
-        width: 80%;
-        max-width: 500px;
-        background: white;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-
-      h1 {
-        color: #d81b60;
-      }
-
-      /* stil för felkoden */
-      .error-code {
-        background-color: #eee;
-        padding: 10px;
-        border-radius: 5px;
-        font-family: monospace;
-        color: #555;
-        margin: 20px 0;
-        font-size: 0.9rem;
-      }
-
-      .btn {
-        display: inline-block;
-        background-color: #ff80ab;
-        color: white;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 25px;
-        font-weight: bold;
-        margin-top: 20px;
-      }
-    </style>
+    <title>Error - Recruitment System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
     <div class="container">
-      <h1>Technical Error</h1>
-
-      <p th:text="${errorMessage}">Error details</p>
-
-      <div class="error-code">
-        Error ID: <span th:text="${errorId}">123-456</span>
-      </div>
-
-      <a href="/recruiter/applications" class="btn">Go Back</a>
+      <header>
+        <h1 th:text="${errorTitle != null ? errorTitle : 'Unexpected Error'}">
+          Error
+        </h1>
+      </header>
+      <main>
+        <div class="error-box">
+          <p
+            class="status-code"
+            th:if="${status}"
+            th:text="'Status: ' + ${status}"
+          ></p>
+          <p
+            th:text="${errorMessage != null ? errorMessage : 'An unknown error has occurred.'}"
+          >
+            Error message here.
+          </p>
+          <br />
+          <a href="/" class="btn">Return to Start</a>
+        </div>
+      </main>
     </div>
   </body>
 </html>
