@@ -1,18 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="UTF-8" />
-    <title>Error</title>
+    <title>Error - Recruitment System</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
-    <div class="container container-narrow text-center">
-      <h1>Technical Error</h1>
-      <p th:text="${errorMessage}">Error details</p>
-      <div class="error-box">
-        Error ID: <span th:text="${errorId}">123-456</span>
-      </div>
-      <a href="/home" class="btn">Go Back Home</a>
+    <div class="container">
+      <header>
+        <h1 th:text="${errorTitle != null ? errorTitle : 'Unexpected Error'}">
+          Error
+        </h1>
+      </header>
+      <main>
+        <div class="error-box">
+          <p
+            class="status-code"
+            th:if="${status}"
+            th:text="'Status: ' + ${status}"
+          ></p>
+          <p
+            th:text="${errorMessage != null ? errorMessage : 'An unknown error has occurred.'}"
+          >
+            Error message here.
+          </p>
+          <br />
+          <a href="/" class="btn">Return to Start</a>
+        </div>
+      </main>
     </div>
   </body>
 </html>
